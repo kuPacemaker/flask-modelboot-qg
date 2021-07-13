@@ -55,8 +55,8 @@ python biunilm/decode_seq2seq.py --bert_model bert-large-cased --new_segment_ids
 
 ```json
 {
-	"bkd": 질문 생성에 사용할 단락,
-  "q": 모델이 생성한 질문
+  "bkd": "질문 생성에 사용할 단락",
+  "q": "모델이 생성한 질문"
 }
 
 {
