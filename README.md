@@ -75,13 +75,13 @@ class QuestionGenerationController {
   private final NLPModel model;
   
   @GetMapping("/qg/{baseKnowledge}")
-	public QuestionGenerationResponseDto questionGeneration(@RequestParam String baseKnowledge) {
-		return new QuestionGenerationResponseDto(baseKnowledge, model.offer(baseKnowledge));
-	}
+  public QuestionGenerationResponseDto questionGeneration(@RequestParam String baseKnowledge) {
+    return new QuestionGenerationResponseDto(baseKnowledge, model.offer(baseKnowledge));
+  }
 }
 
 interface NLPModel {
-	public void boot();
+  public void boot();
   public void offer(String message);
   public void offer(List<String> message);
   public void close();
@@ -126,7 +126,7 @@ class PipeWriter implements Writer {
 
 class JsonPipeReader implement Reader<JSONObject> {
 
-	private final Formatter responseFormatter;
+  private final Formatter responseFormatter;
 
   @Override
   public JSONObject read() {
