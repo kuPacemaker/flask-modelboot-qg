@@ -40,3 +40,109 @@ python biunilm/decode_seq2seq.py --bert_model bert-large-cased --new_segment_ids
 - 어댑터: 클라이언트 앱과 어댑티 모델 사이에 있는 컴포넌트이다. 자연어 처리 모델을 래핑하여 이 모델이 적재 이후 지속적인 '자연어 입력- 모델 전파 - 결과 반환' 프로세스로 실행되도록 한다.
 - 자연어처리 모델: 처리해야 할 자연어를 입력 받고, 네트워크에 이를 전파하여 자연어 처리 결과물을 만드는 모듈이다.
 - 어댑티 모델: 어댑터와 상호작용 가능하도록 인터페이스 요구사항을 구현한, "수정된 자연어처리 모델"이다.
+
+## 인터페이스 정의
+
+이 프로젝트는 `Question Generation` 태스크에 한정하여 확장성을 고려하지 않는 인터페이스를 정의한다.
+
+### 이용자 - 클라이언트 앱
+
+`GET http://localhost/qg/{baseKnowledge}`
+
+자연어 단락 `baseKnowledge` 에 대한 질문 생성을 요청한다.
+
+생성된 질문은 JSON `bkd` 와 `q` 로 이뤄진 객체이다.
+
+```json
+{
+	"bkd": 질문 생성에 사용할 단락,
+  "q": 모델이 생성한 질문
+}
+
+{
+  "bkd": "Well, but I still wanna ask: 'How was your day?'",
+  "q": "Why do you think I still want to say hello to her?"
+}
+```
+
+### 클라이언트 앱 - 어댑터
+
+클라이언트 앱과 어댑터가 Java로 구현될 경우 명세는 다음과 같다.
+
+```java
+@Controller
+class QuestionGenerationController {
+  private final NLPModel model;
+  
+  @GetMapping("/qg/{baseKnowledge}")
+	public QuestionGenerationResponseDto questionGeneration(@RequestParam String baseKnowledge) {
+		return new QuestionGenerationResponseDto(baseKnowledge, model.offer(baseKnowledge));
+	}
+}
+
+interface NLPModel {
+	public void boot();
+  public void offer(String message);
+  public void offer(List<String> message);
+  public void close();
+} 
+```
+
+### 어댑터 - 어댑티 모델
+
+어댑터와 어댑티 모델은 OS의 네임드 파이프를 사용해서 통신한다.
+
+```java
+abstract class DefaultModelAdapter implements ModelAdapter<ByteArray> {
+
+  private final PythonInterpreter process;
+  private final Writer pipeWriter;
+  private final Reader<ByteArray> pipeReader;
+
+  @Override
+  public void boot(){...}
+
+  @Override
+  public void write(String message) {
+    writer.write(message);
+  }
+
+  @Override
+  public ByteArray read() {
+    return reader.read();
+  }
+}
+
+class PipeWriter implements Writer {
+  
+  private final Formatter messageFormatter;
+  
+  @Override
+  public void write(String message) {
+    String formatted = formatter.format(message);
+    ...
+  }
+}
+
+class JsonPipeReader implement Reader<JSONObject> {
+
+	private final Formatter responseFormatter;
+
+  @Override
+  public JSONObject read() {
+    ...
+    return new JSONObject(...);
+  }
+}
+```
+
+```java
+[어댑티 모델 개략 구조]
+main:
+  모델로딩()
+  무한루프:
+	  notify_모델로딩()
+	  파이프_블로킹_read()
+	  모델연산()
+	  파이프_블로킹_write()
+```
