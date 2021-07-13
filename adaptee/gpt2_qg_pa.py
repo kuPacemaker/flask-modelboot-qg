@@ -1,11 +1,11 @@
-from transformers import GPT2Tokenizer, GTP2LMHeadModel
+from transformers import AutoTokenizer, AutoModelWithLMHead
 
 repository = "danyaljj/gpt2_question_generation_given_paragraph_answer"
 
 def main():
     tokenizer, model = load_model()
     while True:
-        input_ids = tokenizer.encode(input(), return_tensors="tf")
+        input_ids = tokenizer.encode(input(), return_tensors="pt")
         outputs = model.generate(input_ids)
         print("Generated:", tokenizer.decode(outputs[0], skip_special_tokens=True))
     
