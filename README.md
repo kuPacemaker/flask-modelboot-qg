@@ -148,3 +148,8 @@ main:
 ```
 ## 마감일
 ~21.07.17 ><;;;
+
+## 모델 디펜던시
+2가지 GPT2 모델을 래핑해 볼 것을 권고한다.
+https://huggingface.co/p208p2002/gpt2-squad-qg-hl?text=Harry+Potter+is+a+series+of+seven+fantasy+novels+written+by+British+author%2C+%5BHL%5DJ.+K.+Rowling%5BHL%5D.
+https://huggingface.co/danyaljj/gpt2_question_generation_given_paragraph_answer
