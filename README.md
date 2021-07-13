@@ -140,8 +140,8 @@ class JsonPipeReader implement Reader<JSONObject> {
 [어댑티 모델 개략 구조]
 main:
   모델로딩()
+  notify_모델로딩()
   무한루프:
-	  notify_모델로딩()
 	  파이프_블로킹_read()
 	  모델연산()
 	  파이프_블로킹_write()
