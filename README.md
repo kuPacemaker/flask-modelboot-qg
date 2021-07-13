@@ -61,7 +61,7 @@ python biunilm/decode_seq2seq.py --bert_model bert-large-cased --new_segment_ids
 
 {
   "bkd": "Well, but I still wanna ask: 'How was your day?'",
-  "q": "Why do you think I still want to say hello to her?"
+  "q": "Why do you think I still want to say hello to?"
 }
 ```
 
