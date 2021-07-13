@@ -113,7 +113,7 @@ abstract class DefaultModelAdapter implements ModelAdapter<ByteArray> {
   }
 }
 
-class PipeWriter implements Writer {
+class PipeWriter implements Writer { 
   
   private final Formatter messageFormatter;
   
@@ -146,3 +146,5 @@ main:
 	  모델연산()
 	  파이프_블로킹_write()
 ```
+## 마감일
+~21.07.17 ><;;;
