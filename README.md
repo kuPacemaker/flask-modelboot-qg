@@ -1,4 +1,4 @@
-# unilm-v1-boot
+# gpt2-qg-boot
 
 qg에 강(強)의존하는 입출력 어댑터
 
