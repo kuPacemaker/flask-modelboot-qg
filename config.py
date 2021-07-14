@@ -1,9 +1,9 @@
 from transformers import PretrainedConfig
 
-def preConfigure(modelboot, tokenizer):
-    configTokenizer(tokenizer)
+def preConfigure(modelboot):
+    configTokenizer(modelboot.tokenizer)
 
-def postConfigure(modelboot, tokenizer):
+def postConfigure(modelboot):
     custom_dict = {
         'max_length': 512,
         'early_stopping': True,
@@ -12,8 +12,8 @@ def postConfigure(modelboot, tokenizer):
         'top_p': 0.9,
         'top_k': 10,
         'num_beams': 3,
-        'pad_token_id': tokenizer.pad_token_id,
-        'eos_token_id': tokenizer.eos_token_id,
+        'pad_token_id': modelboot.tokenizer.pad_token_id,
+        'eos_token_id': modelboot.tokenizer.eos_token_id,
     }
     modelboot.model.config = PretrainedConfig.from_pretrained(modelboot.repository)
     modelboot.model.config.update(custom_dict)
