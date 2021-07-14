@@ -1,6 +1,6 @@
 # unilm-v1-boot
 
-unilm-v1에 강(強)의존하는 입출력 어댑터
+qg에 강(強)의존하는 입출력 어댑터
 
 ## 문제 정의
 
@@ -16,7 +16,7 @@ python biunilm/decode_seq2seq.py --bert_model bert-large-cased --new_segment_ids
   --batch_size 16 --beam_size 1 --length_penalty 0
 ```
 
-이 프로젝트에서는 마이크로소프트가 제공하는 파인튠드 모델: `UniLMv1`만이 논의 대상이다.
+예시는 마이크로소프트가 제공하는 파인튠드 모델: `UniLMv1`이다.
 
 보았듯이 `biunilm/decode_seq2seq.py`의 인터페이스는 args로 전달된 텍스트 파일에서 자연어를 읽어들이고, 연산하여 결과를 반환하고 종료되도록 설계되었다.
 
@@ -82,69 +82,46 @@ class QuestionGenerationController {
 
 interface NLPModel {
   public void boot();
-  public void offer(String message);
-  public void offer(List<String> message);
+  public String offer(String message);
+  public List<String> offer(List<String> message);
   public void close();
 } 
 ```
 
 ### 어댑터 - 어댑티 모델
 
-어댑터와 어댑티 모델은 OS의 네임드 파이프를 사용해서 통신한다.
+어댑터와 어댑티 모델은 HTTP REST 형식의 통신을 한다.
 
 ```java
 abstract class DefaultModelAdapter implements ModelAdapter<ByteArray> {
 
   private final PythonInterpreter process;
-  private final Writer pipeWriter;
-  private final Reader<ByteArray> pipeReader;
+  private final RestIO restio;
+  private final Queue<String> resultQueue;
 
   @Override
   public void boot(){...}
 
   @Override
   public void write(String message) {
-    writer.write(message);
+    JSONObject response = restio.send(message);
+    resultQueue.offer(resopnse.get("question"));
   }
 
   @Override
   public ByteArray read() {
-    return reader.read();
-  }
-}
-
-class PipeWriter implements Writer { 
-  
-  private final Formatter messageFormatter;
-  
-  @Override
-  public void write(String message) {
-    String formatted = formatter.format(message);
     ...
-  }
-}
-
-class JsonPipeReader implement Reader<JSONObject> {
-
-  private final Formatter responseFormatter;
-
-  @Override
-  public JSONObject read() {
-    ...
-    return new JSONObject(...);
+    return resultQueue.pop();
   }
 }
 ```
 
-```java
+```python
 [어댑티 모델 개략 구조]
-main:
-  모델로딩()
-  notify_모델로딩()
-  무한루프:
-	  파이프_블로킹_read()
-	  모델연산()
-	  파이프_블로킹_write()
+Flask앱:
+  1. 의존 모델 부팅 (huggingface Auto API)
+  2. REST 인터페이스 설정
+  3. WebService로서 실행
 ```
 ## 마감일
 ~21.07.17 ><;;;
