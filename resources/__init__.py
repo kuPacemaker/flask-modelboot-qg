@@ -1,2 +1,2 @@
-from .qg import GeneratedQuestionDto
+from .qg import GeneratedQuestionDto, BatchGeneratedQuestionDto
 from .modelconfig import ModelConfigDto

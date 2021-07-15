@@ -6,6 +6,7 @@ class GeneratedQuestionDto(NLPAwareResource):
         generated = self.nlp.offer(baseKnowledge + " </s>")
         return {"input": baseKnowledge, "generated": generated}
 
+class BatchGeneratedQuestionDto(NLPAwareResource):
     def post(self):
         json_payload = request.get_json(force=True)
         try:
@@ -17,7 +18,6 @@ class GeneratedQuestionDto(NLPAwareResource):
         responses = [{
             "input": message, 
             "generated": self.nlp.offer(message + " </s>")
-            } for message in messages]
-
+            } for message in messages
+        ]
         return {"responses": responses}
-
