@@ -3,7 +3,7 @@ class NLPService:
         self.tokenizer = tokenizer
         self.model = model
 
-    def offer(self, message):
+    def offer(self, input_seq):
        raise NotImplementedError("abstract method!")
 
 class QGService(NLPService):
@@ -15,16 +15,16 @@ class QGService(NLPService):
             list: self._offer_batch
         }
 
-    def offer(self, message):
-        return self.offermap[type(message)](message)
+    def offer(self, input_seq):
+        return self.offermap[type(input_seq)](input_seq)
 
-    def _offer_single(self, message):
-        input_ids = self.tokenizer.encode(message, return_tensors=self.return_tensors)
+    def _offer_single(self, input_seq):
+        input_ids = self.tokenizer.encode(input_seq, return_tensors=self.return_tensors)
         outputs = self.model.generate(input_ids)
         return self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-    def _offer_batch(self, messages):
-        inputs_encoded = self.tokenizer.batch_encode_plus(messages, 
+    def _offer_batch(self, batch_input_seq):
+        inputs_encoded = self.tokenizer.batch_encode_plus(batch_input_seq, 
                                                      padding='longest', 
                                                      return_tensors=self.return_tensors)
         input_ids = inputs_encoded['input_ids']
