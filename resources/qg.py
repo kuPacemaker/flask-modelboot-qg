@@ -1,4 +1,4 @@
-from .nlp_aware import NLPAwareResource
+from .nlpaware import NLPAwareResource
 from flask import request
 
 def response_wrapping(input, generated):
