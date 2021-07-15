@@ -1,3 +1,3 @@
 from . import config as config
-from .config.modelconfig import ModelConfig as ModelConfig
+from .config.bootconfig import BootConfig as BootConfig
 from .boot import ModelBootApp as ModelBootApp

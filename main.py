@@ -1,5 +1,5 @@
-from flask_restful import Api, Resource
-from boot import ModelBootApp, ModelConfig
+from flask_restful import Api
+from boot import ModelBootApp
 from resources import GeneratedQuestionDto, BatchGeneratedQuestionDto, ModelConfigDto
 
 repository = "valhalla/t5-small-qg-prepend"

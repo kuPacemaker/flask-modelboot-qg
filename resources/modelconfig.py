@@ -1,4 +1,4 @@
-from .nlp_aware import NLPAwareResource
+from .nlpaware import NLPAwareResource
 
 class ModelConfigDto(NLPAwareResource):
     def get(self):
