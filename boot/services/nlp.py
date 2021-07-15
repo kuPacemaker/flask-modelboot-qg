@@ -13,7 +13,7 @@ class NLPService:
     def _offer_single(self, input_seq):
         raise NotImplementedError("abstract method!")
 
-    def _offer_batch(self, input_seq):
+    def _offer_batch(self, batch_input_seq):
         raise NotImplementedError("abstract method!")
 
 class QGService(NLPService):
