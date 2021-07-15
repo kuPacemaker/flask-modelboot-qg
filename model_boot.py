@@ -1,5 +1,5 @@
 from flask import Flask
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModelForSeq2SeqLM
 from config import preConfigure, postConfigure
 
 class ModelBoot(Flask):
@@ -16,7 +16,7 @@ class ModelBoot(Flask):
         self.tokenizer = AutoTokenizer.from_pretrained(self.repository)
        
     def _load_model(self):
-        self.model = AutoModelForCausalLM.from_pretrained(self.repository)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(self.repository)
 
     def offer(self, message):
         input_ids = self.tokenizer.encode(message, return_tensors="pt")
