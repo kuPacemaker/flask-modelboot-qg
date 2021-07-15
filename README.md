@@ -123,10 +123,16 @@ Flask앱:
   2. REST 인터페이스 설정
   3. WebService로서 실행
 ```
-## 마감일
+
+## 추가 정보
+### 마감일
 ~21.07.17 ><;;;
 
-## 모델 디펜던시
+### 모델 의존 계획
 2가지 GPT2 모델을 래핑해 볼 것을 권고한다.
-https://huggingface.co/p208p2002/gpt2-squad-qg-hl?text=Harry+Potter+is+a+series+of+seven+fantasy+novels+written+by+British+author%2C+%5BHL%5DJ.+K.+Rowling%5BHL%5D.
-https://huggingface.co/danyaljj/gpt2_question_generation_given_paragraph_answer
+- https://huggingface.co/p208p2002/gpt2-squad-qg-hl?text=Harry+Potter+is+a+series+of+seven+fantasy+novels+written+by+British+author%2C+%5BHL%5DJ.+K.+Rowling%5BHL%5D.
+- https://huggingface.co/danyaljj/gpt2_question_generation_given_paragraph_answer
+
+### PA 모델 테스트 응답
+<img width="1654" alt="image" src="https://user-images.githubusercontent.com/15683098/125637792-63ed0c5b-6a98-4bf0-b3fc-42a7c9f4dd25.png">
+
