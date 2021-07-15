@@ -1,2 +1,2 @@
 from .qg import GeneratedQuestionDto
-from .model import ModelConfigDto
+from .modelconfig import ModelConfigDto
