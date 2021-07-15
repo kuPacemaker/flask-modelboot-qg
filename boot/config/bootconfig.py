@@ -1,4 +1,4 @@
-class ModelConfig:
+class BootConfig:
 
     def __init__(self, tokenizer_class, model_class):
         self.tokenizer_class = tokenizer_class

@@ -1,11 +1,11 @@
 from flask import Flask
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-from .config.modelconfig import ModelConfig
+from .config.bootconfig import BootConfig
 from .services.nlp import QGService
 
 class ModelBootApp(Flask):
 
-    configuration = ModelConfig(AutoTokenizer, AutoModelForSeq2SeqLM)
+    configuration = BootConfig(AutoTokenizer, AutoModelForSeq2SeqLM)
 
     def __init__(self, import_name, repository, *args, **kwargs):
         super().__init__(import_name=import_name, *args, **kwargs) 
