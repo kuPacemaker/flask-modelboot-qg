@@ -1,12 +1,18 @@
 import requests, json
 
+BASE = "http://127.0.0.1:5000"
+
 def test_case(context, answer):
     return f"answer: {answer} context: {context}"
 
 def test_post_api(cas):
-    BASE = "http://127.0.0.1:5000"
     response = requests.post(BASE + "/qg", json={"messages": cas})
     print(response.json())
+
+def test_post_api_fails(cas):
+    response = requests.post(BASE + "/qg", json={"massages": cas})
+    print(response.json())
+
 
 mosquito="""
 A controversial plan is moving ahead to release genetically modified mosquitoes into the Florida Keys. More than 750,000 of the insects are set to be introduced there. Why? The aedes aegypti mosquito can carry dangerous diseases like the Zika virus, Dengue fever and yellow fever. Officials are looking for new ways to kill of these insects without using pesticides and genetically modified mosquitoes might be a way to do this. Only female mosquitoes bite people. The altered insects that are set to be released in Florida are male. They`ve been modified so that the female offspring they produce will die before they hatch from their eggs and grow big enough to bite people. And the company that developed these GMO mosquitoes say they`ve been very successful in controlling mosquito populations in Panama, Brazil and the Cayman Islands.
@@ -28,3 +34,4 @@ test_cases = [
 ]
 
 test_post_api(test_cases)
+test_post_api_fails(test_cases)
