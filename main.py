@@ -16,7 +16,7 @@ api.add_resource(
 
 api.add_resource(
     ModelConfigDto, 
-    "/qg/config", 
+    "/model/config", 
     resource_class_kwargs={
         'nlp': app.service
     }
