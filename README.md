@@ -130,9 +130,15 @@ Flask앱:
 
 ### 모델 의존 계획
 2가지 GPT2 모델을 래핑해 볼 것을 권고한다.
-- https://huggingface.co/p208p2002/gpt2-squad-qg-hl?text=Harry+Potter+is+a+series+of+seven+fantasy+novels+written+by+British+author%2C+%5BHL%5DJ.+K.+Rowling%5BHL%5D.
 - https://huggingface.co/danyaljj/gpt2_question_generation_given_paragraph_answer
+- https://huggingface.co/valhalla/t5-small-qg-prepend
 
 ### PA 모델 테스트 응답
 <img width="1654" alt="image" src="https://user-images.githubusercontent.com/15683098/125637792-63ed0c5b-6a98-4bf0-b3fc-42a7c9f4dd25.png">
+
+### T5 Prepend 모델 테스트 응답
+- 짧은 단락들엔 전혀 납득할 수 없는 질문들이 생성
+  ![image](https://user-images.githubusercontent.com/15683098/125723622-e15ccff7-d631-4bec-8353-72d6844b6292.png)
+- 창세기 1장 (긴 단락) 오 좀 더 연구할 가치가 있다
+  ![image](https://user-images.githubusercontent.com/15683098/125726385-8cfd2534-ecae-4ff6-abe7-7f556c8a4d46.png)
 
