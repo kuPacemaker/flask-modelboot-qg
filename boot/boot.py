@@ -11,5 +11,6 @@ class ModelBootApp(Flask):
         super().__init__(import_name=import_name, *args, **kwargs) 
         self.repository = repository
         self.service = QGService(
-                *ModelBootApp.configuration.configure(repository), #tokenizer, model
-                return_tensors="pt")
+            *ModelBootApp.configuration.configure(repository), #tokenizer, model
+            return_tensors="pt"
+        )
